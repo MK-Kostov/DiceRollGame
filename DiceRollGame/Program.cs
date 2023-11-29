@@ -1,69 +1,58 @@
-﻿using System.Threading.Channels;
+﻿using DiceRollGame.Game;
+using System.Threading.Channels;
 
 var random = new Random();
 var dice = new Dice(random);
 var guessingGame = new GuessingGame(dice);
 
-bool xxx = guessingGame.Play();
+GameResult gameResult = guessingGame.Play();
+GuessingGame.PrintResult(gameResult);
+
+
 
 Console.ReadKey();
 
-class GuessingGame
-{
-	private readonly Dice _dice;
-	private const int InitialTries = 3;
+//Season firstSeason = Season.Spring;
+//Season lastSeason = Season.Winter;
+//int firstSeasonAsNumber = (int)firstSeason;
+//int lastSeasonAsNumber = (int)lastSeason;
+//Console.WriteLine(firstSeason);
+//Console.WriteLine("As a number: " + firstSeasonAsNumber);
+//Console.WriteLine(lastSeason);
+//Console.WriteLine("As a number: " + lastSeasonAsNumber);
 
-	public GuessingGame(Dice dice)
-	{
-		_dice = dice;
-	}
 
-	public bool Play()
-	{
-		var diceRollResult = _dice.Roll();
-		Console.WriteLine($"Dice rolled. Guest what number it shows in {InitialTries} tries.");
+//public enum HttpCode
+//{
+//	Ok = 200,
+//	NotFound = 404,
+//	InternalServerError = 500
+//}
 
-		var triesLeft = InitialTries;
-		while (triesLeft > 0)
-		{
-			var guess = ConsoleReader.RealIntiger("Enter a number");
-			if (guess == diceRollResult)
-			{
-				return true;
-			}
-			Console.WriteLine("Wrong number.");
-			--triesLeft;
-		}
-		return false;
-	}
-}
+//public enum Season
+//{
+//	Spring,
+//	Summer,
+//	Autumn,
+//	Winter
 
-public static class ConsoleReader
-{
-	public static int RealIntiger(string message)
-	{
-		int result;
-		do
-		{
-			Console.WriteLine(message);
-		}
-		while (!int.TryParse(Console.ReadLine(), out result));
-		return result;
-	}
-}
+//}
 
-public class Dice
-{
-	private readonly Random _random;
-	private const int SidesCount = 6;
+//public enum DayOfWeek
+//{
+//	Monday,
+//	Tuesday,
+//	Wednesday,
+//	Friday,
+//	Saturday,
+//	Sunday
+//}
 
-	public Dice(Random random)
-	{
-		_random = random;
-	}
+//public enum ItemCategory
+//{
+//	Food,
+//	Clothing,
+//	Electronics
+//}
 
-	public int Roll() => _random.Next(1, SidesCount + 1);
 
-	public void Describe() =>
-		Console.WriteLine($"This is a dice with {SidesCount} sides");
-}
